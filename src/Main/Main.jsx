@@ -5,25 +5,27 @@ import {
   TabsBody,
   TabsHeader,
 } from "@material-tailwind/react";
+import Editor from "../Pages/Editor/Editor";
+import Preview from "../Pages/Preview/Preview";
 
 const Main = () => {
   return (
     <div>
       <Tabs value="editor">
-        <TabsHeader>
-          <Tab key={"Editor"} value={"editor"}>
+        <TabsHeader className=" max-w-2xl h-[60px] mx-auto mt-8 bg-blue-400">
+          <Tab key={"Editor"} value={"editor"} className=" text-xl font-semibold">
             Editor
           </Tab>
-          <Tab key={"Preview"} value={"preview"}>
+          <Tab key={"Preview"} value={"preview"} className=" text-xl font-semibold">
             Preview
           </Tab>
         </TabsHeader>
         <TabsBody>
           <TabPanel key={"Editor"} value={"editor"}>
-            H
+            <Editor></Editor>
           </TabPanel>
           <TabPanel key={"Preview"} value={"preview"}>
-            I
+            <Preview></Preview>
           </TabPanel>
         </TabsBody>
       </Tabs>
