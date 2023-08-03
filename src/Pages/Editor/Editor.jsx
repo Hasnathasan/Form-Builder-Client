@@ -18,20 +18,17 @@ const Editor = () => {
     if (selectedText) {
       setSelectedWords([...selectedWords, selectedText]);
       setSentence(sentence.replace(selectedText, `<<${selectedText}>>`));
-      for(let i = 0; i<selectedWords; i++){
-        if(i === 0){
-          setPreviewSentence(sentence)
-        }
-        const word = selectedWords[i];
-        setPreviewSentence(previewSentence.replace(`${word}`, "______"))
-      }
+      setPreviewSentence(previewSentence.replace(selectedText, "_____"))
+      
     }
     console.log(previewSentence);
   };
   const handleInputChange = (e) => {
     const newSentence = e.target.value;
     setSentence(newSentence);
-    setSelectedWords([]); // Clear selected words when input changes
+    setSelectedWords([]); 
+    setPreviewSentence(newSentence)
+    // Clear selected words when input changes
   };
 
   return (
@@ -146,6 +143,7 @@ const Editor = () => {
             <input
               className=" outline-none border border-gray-400 p-2 rounded"
               type="text"
+              value={previewSentence}
             />
             <h4 className="mt-5">
               Sentence -select a word to make it as a fill up word
