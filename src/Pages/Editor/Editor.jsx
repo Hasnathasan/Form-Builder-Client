@@ -26,16 +26,28 @@ const Editor = ({setFormId}) => {
 
 
 
-  const onSubmit = (data) => {
-    console.log(data);
-    fetch("http://localhost:5000/form", {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    })
-    .then(res => res.json())
-    .then(data => setFormId(data.insertedId))
-  }
+  const onSubmit = async (data) => {
+    try {
+      console.log(data);
+      data.Q2PreviewSentence = previewSentence;
+      const response = await fetch("http://localhost:5000/form", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const responseData = await response.json();
+      setFormId(responseData.insertedId);
+    } catch (error) {
+      console.error('An error occurred:', error);
+      // Handle the error appropriately, e.g., show an error message to the user
+    }
+  };
+  
 
 
 
@@ -73,6 +85,9 @@ const Editor = ({setFormId}) => {
       >
         <Button color="green" type="submit" className=" float-right btn">Save Changes</Button>
         {/* {Categorized Questions} */}
+
+    
+
         <div className="mb-20 bg-gray-200 p-9 rounded-lg">
           <div className="flex gap-2">
             <h3 className="text-xl font-semibold text-blue-700 uppercase mb-3">

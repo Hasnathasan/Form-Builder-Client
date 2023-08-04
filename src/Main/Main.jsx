@@ -28,7 +28,9 @@ const Main = () => {
             <Editor setFormId={setFormId}></Editor>
           </TabPanel>
           <TabPanel key={"Preview"} value={"preview"}>
-            <Preview formId={formId}></Preview>
+            {
+              formId ? <Preview formId={formId}></Preview> : <h1>Nothing is Here</h1>
+            }
           </TabPanel>
         </TabsBody>
       </Tabs>
