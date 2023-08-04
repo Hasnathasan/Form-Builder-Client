@@ -7,8 +7,11 @@ import {
 } from "@material-tailwind/react";
 import Editor from "../Pages/Editor/Editor";
 import Preview from "../Pages/Preview/Preview";
+import { useState } from "react";
 
 const Main = () => {
+  const [formId, setFormId] = useState();
+  console.log(formId);
   return (
     <div>
       <Tabs value="editor">
@@ -22,10 +25,10 @@ const Main = () => {
         </TabsHeader>
         <TabsBody>
           <TabPanel key={"Editor"} value={"editor"}>
-            <Editor></Editor>
+            <Editor setFormId={setFormId}></Editor>
           </TabPanel>
           <TabPanel key={"Preview"} value={"preview"}>
-            <Preview></Preview>
+            <Preview formId={formId}></Preview>
           </TabPanel>
         </TabsBody>
       </Tabs>
