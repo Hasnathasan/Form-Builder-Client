@@ -30,7 +30,7 @@ const Editor = ({setFormId}) => {
     try {
       console.log(data);
       data.Q2PreviewSentence = previewSentence;
-      const response = await fetch("http://localhost:5000/form", {
+      const response = await fetch("https://form-builder-server-flame.vercel.app/form", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
@@ -78,11 +78,11 @@ const Editor = ({setFormId}) => {
     <div>
       <h1 className="text-4xl font-bold text-center my-5">Edit Your Form With EDFORM</h1>
       <form
-        className=" max-w-6xl mx-auto border-2 p-6 rounded-lg border-blue-500"
+        className=" max-w-6xl mx-auto border-2 p-10 rounded-lg border-blue-500"
         onSelect={handleSubmit(onSelect)}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Button color="green" type="submit" className=" float-right btn">Save Changes</Button>
+        
         {/* {Categorized Questions} */}
 
     
@@ -95,15 +95,14 @@ const Editor = ({setFormId}) => {
       content={
         <div className="w-80">
           <Typography color="white" className="font-medium">
-            Material Tailwind
+          Categorize Question
           </Typography>
           <Typography
             variant="small"
             color="white"
             className="font-normal opacity-80"
           >
-            Material Tailwind is an easy to use components library for Tailwind
-            CSS and Material Design.
+            First write category name. Then Write items for each category and select the category name.
           </Typography>
         </div>
       }
@@ -235,15 +234,14 @@ const Editor = ({setFormId}) => {
       content={
         <div className="w-80">
           <Typography color="white" className="font-medium">
-            Material Tailwind
+          Cloze Question
           </Typography>
           <Typography
             variant="small"
             color="white"
             className="font-normal opacity-80"
           >
-            Material Tailwind is an easy to use components library for Tailwind
-            CSS and Material Design.
+            First write a sentence in the sentence box. Then select a word to make it as a fill in the box type word.
           </Typography>
         </div>
       }
@@ -273,7 +271,7 @@ const Editor = ({setFormId}) => {
               value={previewSentence}
             />
             <h4 className="mt-5">
-              Sentence -select a word to make it as a fill up word
+              Sentence - Just select a word to make it as a fill up word
             </h4>
             <textarea
               cols={50}
@@ -344,15 +342,14 @@ const Editor = ({setFormId}) => {
       content={
         <div className="w-80">
           <Typography color="white" className="font-medium">
-            Material Tailwind
+          Comprehension Question
           </Typography>
           <Typography
             variant="small"
             color="white"
             className="font-normal opacity-80"
           >
-            Material Tailwind is an easy to use components library for Tailwind
-            CSS and Material Design.
+            Write a paragraph then make question and set options for the question
           </Typography>
         </div>
       }
@@ -392,9 +389,8 @@ const Editor = ({setFormId}) => {
             </Tooltip>
           </span>
           <textarea
+          {...register("PassageOfMcQ", { required: false })}
             className=" outline-none border border-gray-500 p-4 rounded"
-            name=""
-            id=""
             cols="60"
             rows="5"
             placeholder="Your passage here"
@@ -405,6 +401,7 @@ const Editor = ({setFormId}) => {
               <div key={index} className="mt-10 bg-gray-300 p-9 rounded-lg">
                 <h4 className=" text-lg">MCQ question number: {index + 1}</h4>
                 <input
+                {...register(`Mcq${index + 1}`, { required: false })}
                   className="w-[400px] outline-none border border-gray-400 p-2 rounded"
                   type="text"
                   placeholder="Write your Question"
@@ -418,6 +415,7 @@ const Editor = ({setFormId}) => {
                       disabled={true}
                     />
                     <input
+                    {...register(`AnsAOfMcq${index + 1}`, { required: false })}
                       className=" outline-none border border-gray-400 p-2 rounded ms-1"
                       type="text"
                       placeholder="Option1"
@@ -431,6 +429,7 @@ const Editor = ({setFormId}) => {
                       disabled={true}
                     />
                     <input
+                    {...register(`AnsBOfMcq${index + 1}`, { required: false })}
                       className=" outline-none border border-gray-400 p-2 rounded ms-1"
                       type="text"
                       placeholder="Option2"
@@ -444,6 +443,7 @@ const Editor = ({setFormId}) => {
                       disabled={true}
                     />
                     <input
+                    {...register(`AnsCOfMcq${index + 1}`, { required: false })}
                       className=" outline-none border border-gray-400 p-2 rounded ms-1"
                       type="text"
                       placeholder="Option3"
@@ -457,6 +457,7 @@ const Editor = ({setFormId}) => {
                       disabled={true}
                     />
                     <input
+                    {...register(`AnsDOfMcq${index + 1}`, { required: false })}
                       className=" outline-none border border-gray-400 p-2 rounded ms-1"
                       type="text"
                       placeholder="Option4"
@@ -468,6 +469,9 @@ const Editor = ({setFormId}) => {
           })}
           </div>
           
+        </div>
+        <div className="mt-5 mb-20">
+          <Button color="green" type="submit" className=" float-right btn">Save Changes</Button>
         </div>
       </form>
     </div>

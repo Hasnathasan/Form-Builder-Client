@@ -29,7 +29,7 @@ const Main = () => {
           </TabPanel>
           <TabPanel key={"Preview"} value={"preview"}>
             {
-              formId ? <Preview formId={formId}></Preview> : <h1>Nothing is Here</h1>
+              formId ? <Preview formId={formId}></Preview> : <h1 className="text-2xl h-screen font-semibold text-red-600 text-center mt-44">Please save changes to see preview of your form</h1>
             }
           </TabPanel>
         </TabsBody>
