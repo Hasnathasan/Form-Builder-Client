@@ -71,9 +71,8 @@ const Category = ({ category, items, onDrop }) => {
   );
 };
 
-const Preview = ({ formId }) => {
+const Preview = ({ formId, formStatus, setFormStatus }) => {
   const [formData, setFormData] = useState();
-  const [formStatus, setFormStatus] = useState("notSubmited")
   const [items, setItems] = useState(["Item 1", "Item 2", "Item 3", "Item 4"]);
   const [categories, setCategories] = useState([]);
   const [mcqQuestions, setMcqQuestions] = useState([]);
@@ -86,7 +85,6 @@ const Preview = ({ formId }) => {
     "Chole",
     "____",
   ]);
-  
 
   useEffect(() => {
     fetch(`https://form-builder-server-flame.vercel.app/eachform/${formId}`)
@@ -159,41 +157,38 @@ const Preview = ({ formId }) => {
         const extractedWords = newQ2Ans;
         const McqNum1 = {
           question: Mcq1,
-          answers: [AnsAOfMcq1, AnsBOfMcq1, AnsCOfMcq1, AnsDOfMcq1]
-        }
+          answers: [AnsAOfMcq1, AnsBOfMcq1, AnsCOfMcq1, AnsDOfMcq1],
+        };
         const McqNum2 = {
           question: Mcq2,
-          answers: [AnsAOfMcq2, AnsBOfMcq2, AnsCOfMcq2, AnsDOfMcq2]
-        }
+          answers: [AnsAOfMcq2, AnsBOfMcq2, AnsCOfMcq2, AnsDOfMcq2],
+        };
         const McqNum3 = {
           question: Mcq3,
-          answers: [AnsAOfMcq3, AnsBOfMcq3, AnsCOfMcq3, AnsDOfMcq3]
-        }
+          answers: [AnsAOfMcq3, AnsBOfMcq3, AnsCOfMcq3, AnsDOfMcq3],
+        };
         const McqNum4 = {
           question: Mcq4,
-          answers: [AnsAOfMcq4, AnsBOfMcq4, AnsCOfMcq4, AnsDOfMcq4]
-        }
+          answers: [AnsAOfMcq4, AnsBOfMcq4, AnsCOfMcq4, AnsDOfMcq4],
+        };
         const McqNum5 = {
           question: Mcq5,
-          answers: [AnsAOfMcq5, AnsBOfMcq5, AnsCOfMcq5, AnsDOfMcq5]
-        }
-
-
-
+          answers: [AnsAOfMcq5, AnsBOfMcq5, AnsCOfMcq5, AnsDOfMcq5],
+        };
 
         setItems(fetchedItems);
         setCategories(newCategories);
         setFormData(data);
         setSentenceParts(sentenceParts);
         setExtractedWords(extractedWords);
-        setMcqQuestions([McqNum1, McqNum2, McqNum3, McqNum4, McqNum5])
-        setMcqPassage(PassageOfMcQ)
+        setMcqQuestions([McqNum1, McqNum2, McqNum3, McqNum4, McqNum5]);
+        setMcqPassage(PassageOfMcQ);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         // Handle the error as needed (e.g., show an error message to the user)
       });
-  }, [formId]);
+  }, [formId, formStatus]);
 
   const handleDrop = (category, itemIndex) => {
     setCategories((prevCategories) => {
@@ -226,7 +221,6 @@ const Preview = ({ formId }) => {
       setSentenceParts(updatedSentenceParts);
     }
   };
-
 
   const handleAnswerSelect = (index, selectedAnswer) => {
     const newSelectedAnswers = [...selectedAnswers];
@@ -275,86 +269,108 @@ const Preview = ({ formId }) => {
 
   return (
     <div>
-      {
-        formStatus === "notSubmited" ? <form  className=" max-w-6xl mx-auto border-2 border-blue-500 rounded-lg p-12">
-      <DndProvider backend={HTML5Backend}>
-        <div className="mb-20">
-        <h3 className="text-xl font-semibold text-blue-700 uppercase mb-3">
-            Question 1:
-        </h3>
-        <h4>You can Drop an item into container once. So be carefull.</h4>
-          <div
-            style={{
-              marginBottom: "16px",
-              display: "flex",
-              justifyItems: "center",
-            }}
-          >
-            {items.map((item, index) =>
-              item ? <Item key={index} index={index} item={item} /> : ""
-            )}
-          </div>
-          <div style={{ display: "flex" }}>
-            {categories.map((category, index) => (
-              <Category
-                key={index}
-                category={category.name}
-                items={category.items}
-                onDrop={handleDrop}
-              />
-            ))}
-          </div>
-        </div>
-        <div className="App">
-        <h3 className="text-xl text-left font-semibold text-blue-700 uppercase mb-3">
-            Question 2:
-          </h3>
-          <h1 className="text-left">Drag and Drop Words into the Sentence</h1>
+      {formStatus === "notSubmited" ? (
+        <form className=" max-w-6xl mx-auto border-2 border-blue-500 rounded-lg p-2 md:p-12">
           <DndProvider backend={HTML5Backend}>
-            <div className="sentence-preview">
-              <Sentence />
+            <div className="mb-20">
+              <h3 className="text-xl font-semibold text-blue-700 uppercase mb-3">
+                Question 1:
+              </h3>
+              <h4>You can Drop an item into container once. So be carefull.</h4>
+              <div
+                style={{
+                  marginBottom: "16px",
+                  display: "flex",
+                  justifyItems: "center",
+                }}
+              >
+                {items.map((item, index) =>
+                  item ? <Item key={index} index={index} item={item} /> : ""
+                )}
+              </div>
+              <div className="flex flex-col md:flex-row" >
+                {categories.map((category, index) => (
+                  <Category
+                    key={index}
+                    category={category.name}
+                    items={category.items}
+                    onDrop={handleDrop}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="word-list">
-              {extractedWords.map((word, index) => (
-                <Word key={index} word={word} />
-              ))}
+            <div className="App">
+              <h3 className="text-xl text-left font-semibold text-blue-700 uppercase mb-3">
+                Question 2:
+              </h3>
+              <h1 className="text-left">
+                Drag and Drop Words into the Sentence
+              </h1>
+              <DndProvider backend={HTML5Backend}>
+                <div className="sentence-preview">
+                  <Sentence />
+                </div>
+                <div className="word-list">
+                  {extractedWords.map((word, index) => (
+                    <Word key={index} word={word} />
+                  ))}
+                </div>
+              </DndProvider>
             </div>
           </DndProvider>
+          <div className="mcq-container mt-16">
+            <h3 className="text-xl text-left font-semibold text-blue-700 uppercase mb-3">
+              Question 3:
+            </h3>
+            <h4 className="text-lg mb-10">
+              <span className="text-black ">Passage:</span> {mcqPassage}
+            </h4>
+            {mcqQuestions.map((mcq, index) =>
+              mcq.question ? (
+                <Card key={index} className="mcq-question p-1 md:p-4">
+                  <CardBody>
+                    <p className="question">
+                      {index + 1}) {mcq.question}
+                    </p>
+                    <div className="answers">
+                      {mcq.answers.map((answer, ansIndex) => (
+                        <span
+                          key={ansIndex}
+                          className={`answer-button ${
+                            selectedAnswers[index] === answer ? "selected" : ""
+                          }`}
+                          onClick={() => handleAnswerSelect(index, answer)}
+                        >
+                          {answer}
+                        </span>
+                      ))}
+                    </div>
+                  </CardBody>
+                </Card>
+              ) : (
+                ""
+              )
+            )}
+          </div>
+          <div className="mb-10">
+            <Button
+              onClick={() => setFormStatus("submited")}
+              className="btn float-right"
+              color="green"
+            >
+              Submit
+            </Button>
+          </div>
+        </form>
+      ) : (
+        <div className="flex justify-center items-center h-[400px] text-center">
+          <div>
+          <h1 className="text-5xl font-bold text-green-600 mb-3">Test Completed</h1>
+          <h3 className="text-xl font-semibold">Your response has been recorded</h3>
+          </div>
         </div>
-      </DndProvider>
-      <div className="mcq-container mt-16">
-      <h3 className="text-xl text-left font-semibold text-blue-700 uppercase mb-3">
-            Question 3: 
-          </h3>
-          <h4 className="text-lg mb-10"><span className="text-black ">Passage:</span> {mcqPassage}</h4>
-      {mcqQuestions.map((mcq, index) => (
-        
-          mcq.question ? <Card key={index} className="mcq-question">
-            <CardBody>
-          <p className="question">{index + 1}) {mcq.question}</p>
-          <div className="answers">
-            {mcq.answers.map((answer, ansIndex) => (
-              <span
-                key={ansIndex}
-                className={`answer-button ${selectedAnswers[index] === answer ? 'selected' : ''}`}
-                onClick={() => handleAnswerSelect(index, answer)}
-              >
-                {answer}
-              </span>
-            ))}
-          </div></CardBody>
-        </Card>: ""
-        
-      ))}
+      )}
     </div>
-    <div className="mb-10">
-      <Button onClick={() => setFormStatus("submited")} className="btn float-right" color="green">Submit</Button>
-    </div>
-    
-    </form>: ""
-      }
-    </div>
-    
   );
 };
 
