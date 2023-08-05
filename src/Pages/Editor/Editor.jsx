@@ -74,7 +74,6 @@ const Editor = ({setFormId}) => {
     setPreviewSentence(newSentence);
     // Clear selected words when input changes
   };
-
   return (
     <div>
       <h1 className="text-4xl font-bold text-center my-5">Edit Your Form With EDFORM</h1>
@@ -87,7 +86,6 @@ const Editor = ({setFormId}) => {
         {/* {Categorized Questions} */}
 
     
-
         <div className="mb-20 bg-gray-200 p-9 rounded-lg">
           <div className="flex gap-2">
             <h3 className="text-xl font-semibold text-blue-700 uppercase mb-3">

@@ -1,67 +1,45 @@
 .App {
   text-align: center;
-  margin-top: 2rem;
+  margin: 20px;
 }
 
 h1 {
-  font-size: 1.5rem;
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
 .sentence-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 150px;
-  border: 2px dashed #ccc;
-  margin: 10px auto;
+  margin: 20px 0;
 }
 
 .sentence {
   display: flex;
   align-items: center;
+  justify-content: center;
+  border: 2px dashed #ccc;
   padding: 10px;
 }
 
 .word-slot {
-  border: 1px solid #ccc;
-  width: 50px;
+  width: 60px;
   height: 20px;
+  border: 1px solid #999;
   margin: 0 5px;
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .word-gap {
-  width: 20px;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-.word {
-  display: inline-block;
-  background-color: #f0f0f0;
-  padding: 5px 10px;
-  border: 1px solid #ccc;
-  margin: 3px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.dragging {
-  opacity: 0.5;
+  width: 10px;
 }
 
 .word-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 10px;
   margin-top: 20px;
 }
 
-.word-list .word {
-  cursor: grab;
-}
-
-.word-list .dragging {
-  cursor: grabbing;
+.word {
+  background-color: #eee;
+  padding: 5px 10px;
+  cursor: pointer;
 }
